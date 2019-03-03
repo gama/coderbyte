@@ -1,8 +1,10 @@
-const test        = require('mocha').it
-const assert      = require('assert')
-const CorrectPath = require('.')
+const test      = require('mocha').it
+const assert    = require('assert')
+const functions = require('.')
 
-test('correct path', () => {
-    assert(CorrectPath('???rrurdr?')   === 'dddrrurdrd')
-    assert(CorrectPath('drdr??rrddd?') === 'drdruurrdddd')
+Object.entries(functions).forEach(([name, func]) => {
+    test(`correct path (${name})`, () => {
+        assert(func('???rrurdr?')   === 'dddrrurdrd')
+        assert(func('drdr??rrddd?') === 'drdruurrdddd')
+    })
 })
