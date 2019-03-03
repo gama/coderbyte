@@ -14,7 +14,26 @@
 module.exports = QuestionsMarks
 
 function QuestionsMarks(str) {
-    return true.toString()
+    let   digitMatches = []
+    const regex        = /(\d)[A-Za-z?]*(\d)/g
+    let   match        = null
+    while ((match = regex.exec(str)) !== null) {
+        if (digitsSum10(match))
+            digitMatches.push(hasExactly3QuestionMarks(match))
+        regex.lastIndex -= 1  // rewind regex position to reprocess the last digit
+    }
+
+    return `${(digitMatches.length > 0 && digitMatches.every(x => x))}`
+}
+
+function digitsSum10(match) {
+    const firstDigit = match[1], secondDigit = match[2]
+    return parseInt(firstDigit) + parseInt(secondDigit) === 10
+}
+
+function hasExactly3QuestionMarks(match) {
+    const  matchedString = match[0]
+    return matchedString.match(/\?/g).length === 3
 }
 
 if (module === require.main)
