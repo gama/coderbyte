@@ -21,9 +21,27 @@
 
 module.exports = ScaleBalancing
 
-function ScaleBalancing(strArray) {
-    return strArray
+function ScaleBalancing([[leftWeight, rightWeight], availableWeights]) {
+    // try two find a solution using just one weight
+    for (let i = 0; i < availableWeights.length; ++i)
+        if (isBalanceable(leftWeight, rightWeight, availableWeights[i], 0))
+            return `${availableWeights[i]}`
+
+    // then, try two find a solution using two weights
+    for (let i = 0; i < availableWeights.length; ++i)
+        for (let j = (i + 1); j < availableWeights.length; ++j)
+            if (isBalanceable(leftWeight, rightWeight, availableWeights[i], availableWeights[j]))
+                return [availableWeights[i], availableWeights[j]].sort().join(',')
+
+    return 'not possible'
+}
+
+function isBalanceable(leftWeight, rightWeight, weight1, weight2) {
+    return (leftWeight + weight1) === (weight2 + rightWeight) ||
+           (leftWeight + weight2) === (weight1 + rightWeight) ||
+           (leftWeight + weight1 + weight2) === (rightWeight) ||
+           (leftWeight) === (weight1 + weight2 + rightWeight)
 }
 
 if (module === require.main)
-    console.log('scale balancing: ', ScaleBalancing(process.argv[2]))
+    console.log('scale balancing: ', ScaleBalancing(JSON.parse(process.argv[2])))
