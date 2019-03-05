@@ -3,7 +3,7 @@ const assert          = require('assert')
 const symbolFunctions = require('.')
 
 Object.entries(symbolFunctions).forEach(([name, func]) => {
-    test(`simple symbols ${name}`, () => {
+    test(`simple symbols (${name})`, () => {
         assert(func('')               === false)
         assert(func('a')              === false)
         assert(func('a+')             === false)

@@ -3,7 +3,7 @@ const assert              = require('assert')
 const capitalizeFunctions = require('.')
 
 Object.entries(capitalizeFunctions).forEach(([name, func]) => {
-    test(`letter capitalize ${name}`, () => {
+    test(`letter capitalize (${name})`, () => {
         assert(func('')                    === '')
         assert(func(' ')                   === ' ')
         assert(func('h w')                 === 'H W')

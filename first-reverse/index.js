@@ -8,7 +8,7 @@
 module.exports = { FirstReverseRecursive, FirstReverseIterative }
 
 function FirstReverseRecursive(str) {
-    if (str.length <== 0)
+    if (str.length <= 0)
         return ''
     return FirstReverseRecursive(str.slice(1)) + str[0]
 }
