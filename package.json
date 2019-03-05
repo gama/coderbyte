@@ -1,0 +1,25 @@
+{
+  "name": "coderbytes",
+  "version": "0.0.1",
+  "description": "Coding Exercises from Coderbyte (https://coderbyte.com)",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test":  "mocha --exclude '**/node_modules/**' '**/test_*.js' '**/test.js'",
+    "mocha": "mocha --exclude '**/node_modules/**' --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gama/coderbytes.git"
+  },
+  "author": "Gustavo Gama <gustavo.gama@gmail.com>",
+  "license": "Proprietary",
+  "bugs": {
+    "url": "https://github.com/gama/coderbytes/issues"
+  },
+  "homepage": "https://github.com/gama/coderbytes#readme"
+}
