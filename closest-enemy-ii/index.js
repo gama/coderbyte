@@ -23,8 +23,32 @@ module.exports = ClosestEnemyII
 
 function ClosestEnemyII(strArray) {
     const matrix  = strArray.map((row) => [...row])
-    return matrix
+
+    const selfPos = findSelfPos(matrix)
+    const enemies = []
+
+    for (let y = 0; y < matrix.length; ++y)
+        for (let x = 0; x < matrix[y].length; ++x)
+            if (matrix[y][x] === '2')
+                enemies.push(calculateEnemyDistance(matrix, selfPos, {x, y}))
+
+    return enemies.sort()[0]
+}
+
+function findSelfPos(matrix) {
+    for (let y = 0; y < matrix.length; ++y)
+        for (let x = 0; x < matrix[y].length; ++x)
+            if (matrix[y][x] === '1')
+                return {x, y}
+}
+
+function calculateEnemyDistance(matrix, self, enemy) {
+    const matrixHeight = matrix.length
+    const matrixWidth  = matrix[0].length
+    const xDistance    = Math.min(Math.abs(self.x - enemy.x), Math.abs(self.x + matrixWidth  - enemy.x))
+    const yDistance    = Math.min(Math.abs(self.y - enemy.y), Math.abs(self.y + matrixHeight - enemy.y))
+    return xDistance + yDistance
 }
 
 if (module === require.main)
-    console.log('closest enemy II: ', ClosestEnemyII(JSON.parse(process.argv[2])))
+    console.log('closest enemy: ', ClosestEnemyII(JSON.parse(process.argv[2])))
