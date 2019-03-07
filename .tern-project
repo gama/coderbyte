@@ -1,0 +1,8 @@
+{
+    "libs":        [ "ecmascript" ],
+    "loadEagerly": [],
+    "plugins":     {
+        "node":    {},
+        "commonjs": {}
+    }
+}
