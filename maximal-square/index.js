@@ -19,7 +19,34 @@
 module.exports = MaximalSquare
 
 function MaximalSquare(strArray) {
-    return strArray.length
+    const matrix  = strArray.map((row) => [...row])
+
+    const squares = matrix.map((row) => row.slice().fill(0))
+    for (let i = 0; i < matrix.length; ++i)
+        for (let j = 0; j < matrix[i].length; ++j)
+            setCellSquares(matrix, squares, i, j)
+
+    const maxSquareSize = max(squares.map(max))
+    return maxSquareSize ** 2
+}
+
+function setCellSquares(matrix, squares, i, j) {
+    squares[i][j] = calculateCellSquares(matrix, squares, i, j)
+}
+
+function calculateCellSquares(matrix, squares, i, j) {
+    if (matrix[i][j] === '0')
+        return 0
+
+    const topNeighbor     = (i > 0)          ? squares[i - 1][j    ] : 0
+    const leftNeighbor    = (j > 0)          ? squares[i    ][j - 1] : 0
+    const topLeftNeighbor = (i > 0 && j > 0) ? squares[i - 1][j - 1] : 0
+
+    return (1 + Math.min(topNeighbor, leftNeighbor, topLeftNeighbor))
+}
+
+function max(array) {
+    return Math.max.apply(null, array)
 }
 
 if (module === require.main)
