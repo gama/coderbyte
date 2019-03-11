@@ -15,8 +15,20 @@
 
 module.exports = KaprekarsConstant
 
-function KaprekarsConstant(num) {
-    return num
+const CONSTANT = 6174
+
+function KaprekarsConstant(num, numCalls = 0) {
+    if (num === CONSTANT)
+        return numCalls
+
+    const [asc, desc] = sortDigits(num)
+    return KaprekarsConstant(desc - asc, numCalls + 1)
+}
+
+function sortDigits(num) {
+    const asc  = [...num.toString().padStart(4, 0)].sort()
+    const desc = asc.slice().reverse()
+    return [parseInt(asc.join('')), parseInt(desc.join(''))]
 }
 
 if (module === require.main)
