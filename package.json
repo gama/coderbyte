@@ -18,6 +18,7 @@
   },
   "author": "Gustavo Gama <gustavo.gama@gmail.com>",
   "license": "Proprietary",
+  "private": true,
   "bugs": {
     "url": "https://github.com/gama/coderbytes/issues"
   },
