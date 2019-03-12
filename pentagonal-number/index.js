@@ -9,13 +9,26 @@
 //
 // https://i.imgur.com/fYj3yvL.png
 //
-// Your program should return the number of dots that exist in the whole pentagon on the Nth iteration
+// Your program should return the number of dots that exist in the whole
+// pentagon on the Nth iteration
 
-module.exports = PentagonalNumber
+module.exports = { PentagonalNumberRecursive, PentagonalNumberFunctional }
 
-function PentagonalNumber(num) {
-    return num
+function PentagonalNumberRecursive(num) {
+    if (num === 1)
+        return 1
+    return numberOfDotsAtIteration(num) + PentagonalNumberRecursive(num - 1) 
 }
 
-if (module === require.main)
-    console.log('pentagonal number: ', PentagonalNumber(parseInt(process.argv[2])))
+function PentagonalNumberFunctional(num) {
+    return Array(num).fill(null).reduce((acc, _, idx) => acc + (idx * 5), 1)
+}
+
+function numberOfDotsAtIteration(num) {
+    return (num - 1) * 5
+}
+
+if (module === require.main) {
+    console.log('pentagonal number (recursive):  ', PentagonalNumberRecursive(parseInt(process.argv[2])))
+    console.log('pentagonal number (functional): ', PentagonalNumberFunctional(parseInt(process.argv[2])))
+}
