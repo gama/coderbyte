@@ -14,9 +14,39 @@
 
 module.exports = ChessboardTraveling
 
+const BSIZE = 8
+
 function ChessboardTraveling(str) {
-    return parseInt(str)
+    const numWays = Array(BSIZE + 1).fill(null).map(() => Array(BSIZE + 1).fill(0))
+    const [orig, dest] = parseInput(str)
+
+    for (let i = orig.y; i <= dest.y; ++i) {
+        for (let j = orig.x; j <= dest.x; ++j) {
+            numWays[i][j] = calculateNumWays(i, j, numWays, orig)
+            if (i === dest.y && j === dest.x)
+                return numWays[i][j]
+        }
+    } 
+
+    throw new Error('should never reach here!')
+}
+
+function parseInput(inputStr) {
+    const match = inputStr.match(/\(([1-8]) ([1-8])\)\(([1-8]) ([1-8])\)/)
+    if (!match)
+        throw new Error(`invalid input format: ${inputStr}`)
+    const orig = { x: parseInt(match[1]), y: parseInt(match[2]) }
+    const dest = { x: parseInt(match[3]), y: parseInt(match[4]) }
+    return [orig, dest]
+}
+
+function calculateNumWays(currY, currX, numWays, orig) {
+    if ((currY === orig.y) || (currX === orig.x))
+        return 1
+    const numWaysMovingUp    = numWays[currY - 1][currX]
+    const numWaysMovingRight = numWays[currY][currX - 1]
+    return numWaysMovingUp + numWaysMovingRight
 }
 
 if (module === require.main)
-    console.log('chessboard traveling: ', ChessboardTraveling(process.argv[2]))
+    console.log('chessboard traveling: ', JSON.parse(ChessboardTraveling(process.argv[2])))
